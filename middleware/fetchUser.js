@@ -1,0 +1,16 @@
+const jwt = require("jsonwebtoken");
+const SECRET_KEY = "mynameisshivam&don";
+const fetchUser=(req,res,next)=>{
+    const token=req.header('auth-token');  //extracting the token from the header
+    if(!token)
+     return res.status(401).send({error:"Please authenticate using valid token"})
+   
+     try {
+        const data=jwt.verify(token,SECRET_KEY);//verifying the token with secrete key
+          req.user=data.user;  //sending the user id in req
+          next();
+     } catch (error) {
+        return res.status(401).send({error:"Please authenticate using valid token"})
+     }
+}
+module.exports=fetchUser;
