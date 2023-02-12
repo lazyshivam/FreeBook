@@ -4,15 +4,15 @@ const { body, validationResult } = require("express-validator");
 const router = express.Router();
 const User = require("../models/Users");
 const jwt = require("jsonwebtoken");
-const SECRET_KEY = "mynameisshivam&don";
-const fetchUser=require('../middleware/fetchUser')
+const fetchUser=require('../middleware/fetchUser');
+require('dotenv').config();
 
-
+const SECRET_KEY = process.env.SECRET_KEY;
 //Route-1:POST:creating a new user using:api/auth/createuser,no login required
 router.post(
   "/createuser",
   [
-    body("name", "Please enter a valid name.").isLength({ min: 5 }), //validation of user entered value
+    body("name", "Please enter a valid name.").isLength({ min: 3 }), //validation of user entered value
     body("email", "Please enter a valid email.").isEmail(),
     //
     body("password", "Password must be at least 5 characters long").isLength({
@@ -21,21 +21,22 @@ router.post(
   ],
   async (req, res) => {
     //check whether the entered values are valid or not.
+    // let success=false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({success:false, errors: errors.array() });
     }
     try {
       let user = await User.findOne({ email: req.body.email }); //check whether the entered email already exists
       if (user) {
         return res
           .status(400)
-          .json({ error: "User with this email already exists." });
+          .json({ success:false,error: "User with this email already exists." });
       }
 
       //making hash of user passwors to secure the data
       const salt = await bcrypt.genSalt(10);
-      console.log(salt) //salt generated
+      //satl generated
       const secPass = await bcrypt.hash(req.body.password, salt); //adding salt to the user intered pass and genrating hash
 
       //creating a new user
@@ -52,7 +53,8 @@ router.post(
       };
       const authtoken = jwt.sign(data, SECRET_KEY);
       //sending the token of new created user as a respose
-      res.json({ authtoken });
+     
+      res.json({success:true, authtoken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Server internal error occured");
@@ -75,7 +77,8 @@ router.post(
     //check whether the entered values are valid or not.
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+     
+      return res.status(400).json({ success:false,errors: errors.array() });
     }
     const { email, password } = req.body; //destructuring the value from body
     try {
@@ -83,12 +86,12 @@ router.post(
       if (!user)
         return res
           .status(400)
-          .json({ error: "Please try to login with correct credentials" });
+          .json({success:false, error: "Please try to login with correct credentials" });
       const passcompare = await bcrypt.compare(password, user.password); //compare the user entered pass and actual pass stored in database
       if (!passcompare)
         return res
           .status(400)
-          .json({ error: "Please try to login with correct credentials" });
+          .json({ success:false,error: "Please try to login with correct credentials" });
 
       //if both credentials are correct then sending the paylaod
       const data = {
@@ -97,8 +100,9 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, SECRET_KEY);
+      // success=true;
       //sending the token of loged in user as a respose
-      res.json({ authtoken });
+      res.json({success:true, authtoken:authtoken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Server internal error occured");
@@ -114,6 +118,7 @@ router.post("/getuser", fetchUser, async (req, res) => {
     const userid = req.user.id;
     const user = await User.findById(userid).select("-password"); //with the help
     res.send(user);
+  
   } catch (error) {
     console.error(error.message);
       res.status(500).send("Server internal error occured");
