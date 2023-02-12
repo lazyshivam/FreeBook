@@ -1,0 +1,10 @@
+body{
+    background:rgb(4 64 56) ;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+*{
+    padding: 0px;
+    margin: 0px;
+    overflow-x:clip;
+    }

@@ -1,16 +1,24 @@
-import React, { useContext,useEffect,useRef } from "react";
-import { useState } from "react";
+import React, { useContext,useState,useEffect,useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import alertContext from "../context/alerts/AlertContext";
 import noteContext from "../context/notes/NoteContext";
 import NoteItem from "./NoteItem";
 const Notes = () => {
     const context = useContext(noteContext);
+    const alertcontext=useContext(alertContext);
+    const {UpdateAlert}=alertcontext;
+    const naviagte=useNavigate();
     const { notes,getNotes ,updateNote} = context;
     const ref=useRef(null);
     const closeRef=useRef(null);
-
-    console.log(notes);
     useEffect(()=>{
+      if(localStorage.getItem('token'))
+       {
         getNotes();
+       }
+       else{
+         naviagte('/login')
+       }
     // eslint-disable-next-line
    },[])
 
@@ -18,7 +26,6 @@ const Notes = () => {
    const update=(currentNote)=>{
     ref.current.click();
     setNote({cid:currentNote._id,ctitle:currentNote.title,cdescription:currentNote.description,ctag:currentNote.tag});
-    console.log("Updating ......"+note.cid)
    }
    const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
@@ -27,22 +34,25 @@ const Notes = () => {
     e.preventDefault();
    updateNote(note.cid,note.ctitle,note.cdescription,note.ctag);
    closeRef.current.click();
-    console.log("Notes added successfully",note);
+   UpdateAlert("success","Notes updated successfully!.")
+
   };
 
   return (
-      <>
+      <div className="Alert">
       <button type="button" ref={ref} className="btn btn-info d-none "  data-bs-toggle="modal" data-bs-target="#Modal"></button>
       <div className="modal" id="Modal" tabIndex="-1">
       <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
+        <div className="modal-content" style={{background:"#044038"}}>
+          <div className="modal-header" style={{color:"whitesmoke"}}>
             <h5 className="modal-title">Update Notes</h5>
             <button
               type="button"
               className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
+    
+              style={{filter:"invert(1)",fontSize:"20px"}}
             ></button>
           </div>
           <div className="modal-body">
@@ -103,11 +113,14 @@ const Notes = () => {
       {/* ############################################ */}
        <div className="row my-3 text-white  justify-content-center align-items-center"  >
         <h2>Your Notes :</h2>
+        <div className="conainer">
+          {notes.length===0&&"Opps! ,No notes to display"}
+        </div>
           {notes.map((note) => {
             return <NoteItem note={note} update={update} key={note._id}/>;
           })}
         </div>
-        </>
+        </div>
   )
 }
 

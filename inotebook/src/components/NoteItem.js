@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
+import alertContext from "../context/alerts/AlertContext";
 import noteContext from "../context/notes/NoteContext";
 
 const NoteItem = (props) => {
     const context = useContext(noteContext);
+    const alertcontext=useContext(alertContext);
+    const {UpdateAlert}=alertcontext;
     const {deleteNote} = context;
     const {update,note}=props;
     const { title, description, tag,_id } = note;
@@ -17,7 +20,10 @@ const NoteItem = (props) => {
         <p className="card-text">
           {description}
         </p>
-        <button className="btn btn-danger " onClick={()=>deleteNote(_id)}>Delete</button>
+        <button className="btn btn-danger " onClick={()=>{
+          deleteNote(_id);
+          UpdateAlert("success","Notes deleted successfully!.");
+          }}>Delete</button>
         <button type="button"  className="btn btn-info  mx-2 " onClick={()=>update(note)} >
   Update
   </button>

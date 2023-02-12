@@ -1,23 +1,26 @@
-import React,{useState} from "react";
+import React,{useContext,useState} from "react";
 import { Link,useNavigate} from "react-router-dom";
-// import {useHistory}
+import alertContext from "../context/alerts/AlertContext";
 import image from "../image/open-book.png";
 
 
 
 const Newuser = (props) => {
-  const [formValue, setFormValue] = useState({
+
+  const alertcontext=useContext(alertContext);
+  const {UpdateAlert}=alertcontext;
+  const [credentials, setCredentials] = useState({
     name: "",
     email: "",
     password: ""
   });
  const nevigate=useNavigate();
   const onChange = (e) => {
-    setFormValue({ ...formValue, [e.target.name]: e.target.value });
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
   const handleOnSubmit = async (event) => {
-    // console.log(formValue)
+   
     event.preventDefault();
     // const postURL =  "http://localhost:4000/api/auth/createuser";
     const response=await fetch("http://localhost:4000/api/auth/createuser", {
@@ -26,18 +29,18 @@ const Newuser = (props) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formValue),
+      body: JSON.stringify({name:credentials.name,email:credentials.email,password:credentials.password}),
     });
 
   
     const json=await response.json();
-    console.log(json);
 
     //save the authtoken and redirect
-    if(json.authtoken){
+    if(json.success){
       localStorage.setItem('token',json.authtoken);
       nevigate('/');
-      alert("Wohoo!, Account created successfully.")
+      UpdateAlert("success","Wohoo!, Account created successfully.")
+     
     }
     else{
       if(json.error)
@@ -80,11 +83,13 @@ const Newuser = (props) => {
           <input
             type="text"
             name="name"
-            value={formValue.name}
+            value={credentials.name}
             onChange={onChange}
             className="form-control"
             id="name"
             aria-describedby="emailHelp"
+            minLength={3}
+            required
           />
         </div>
         <div className="mb-3">
@@ -94,11 +99,13 @@ const Newuser = (props) => {
           <input
             type="email"
             name="email"
-            value={formValue.email}
+            value={credentials.email}
             onChange={onChange}
             className="form-control"
             id="InputEmail"
             aria-describedby="emailHelp"
+           required
+
           />
           <div id="emailHelp" className="form-text">
             We'll never share your email with anyone else.
@@ -111,10 +118,12 @@ const Newuser = (props) => {
           <input
             type="password"
             name="password"
-            value={formValue.password}
+            value={credentials.password}
             onChange={onChange}
             className="form-control"
             id="exampleInputPassword1"
+            minLength={5}
+            required
           />
         </div>
         <div
