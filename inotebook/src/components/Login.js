@@ -10,7 +10,7 @@ const Login = () => {
   const usercontext=useContext(userContext);
   const {GetUserDetails}=usercontext;
   const {UpdateAlert}=alertcontext;
-  const host = "http://localhost:4000";
+  const host = "https://freebook-website.onrender.com";
   const navigate=useNavigate();
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const onChange = (e) => {

@@ -1,7 +1,7 @@
 import React ,{ useState} from 'react'
 import UserContext from './UserContext'
 const UserState = (props) => {
-  const host = "http://localhost:4000";
+  const host = "https://freebook-website.onrender.com";
     // const ref=useRef(null);
     const [user,setUser]=useState({name:"",email:"",date:""})
     const GetUserDetails=async()=>{

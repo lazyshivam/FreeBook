@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import NoteContext from "./NoteContext";
+const host = "https://freebook-website.onrender.com";
 
 const NoteState = (props) => {
-  const host = "http://localhost:4000";
+ 
   const [notes, setNotes] = useState([]);
   const [isFetching,setIsFetching]=useState(true);
 

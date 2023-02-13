@@ -46,9 +46,6 @@ const Notes = () => {
     UpdateAlert("success", "Notes updated successfully!.");
   };
 
-  if (isFetching){
-    console.log(isFetching)
-  }
   return (
     <div className="Alert">
       <button

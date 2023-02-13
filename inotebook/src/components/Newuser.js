@@ -22,8 +22,8 @@ const Newuser = (props) => {
   const handleOnSubmit = async (event) => {
    
     event.preventDefault();
-    // const postURL =  "http://localhost:4000/api/auth/createuser";
-    const response=await fetch("http://localhost:4000/api/auth/createuser", {
+    const host =  "https://freebook-website.onrender.com";
+    const response=await fetch(`${host}/api/auth/createuser`, {
       method: "POST",
       headers: {
         Accept: "application/json",
