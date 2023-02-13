@@ -4,6 +4,9 @@ import NoteContext from "./NoteContext";
 const NoteState = (props) => {
   const host = "http://localhost:4000";
   const [notes, setNotes] = useState([]);
+  const [isFetching,setIsFetching]=useState(true);
+
+  
   const getNotes = async () => {
     const response = await fetch(`${host}/api/notes/fetchnotes`, {
       method: "GET",
@@ -13,7 +16,7 @@ const NoteState = (props) => {
       },
     });
     const json = await response.json();
-
+    if(json) setIsFetching(false);
     setNotes(json);
   };
 
@@ -42,7 +45,6 @@ const NoteState = (props) => {
       },
     });
     const json = response.json();
-
     const filterNotes = notes.filter((note) => {
       return note._id !== id;
     });
@@ -62,6 +64,7 @@ const NoteState = (props) => {
     });
 
     const json = response.json();
+    
     let newNotes = JSON.parse(JSON.stringify(notes));
 
     for (let index = 0; index < newNotes.length; index++) {
@@ -77,7 +80,7 @@ const NoteState = (props) => {
   };
   return (
     <NoteContext.Provider
-      value={{ notes, addNote, deleteNote, updateNote, getNotes }}
+      value={{ notes, addNote, deleteNote, updateNote, getNotes,isFetching }}
     >
       {props.children}
     </NoteContext.Provider>

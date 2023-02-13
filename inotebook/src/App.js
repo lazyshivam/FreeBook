@@ -35,7 +35,7 @@ function App() {
                     <span>Copyright.All rights reserved.</span>
                   </div>
                   <div className="right">
-                    <div className="gap-3 mt-3 icons d-flex flex-row  justify-content-center align-items-center">
+                    <div className="gap-3 mt-2 icons d-flex flex-row  justify-content-center align-items-center">
                       <span>
                         <i className="fa fa-twitter"></i>
                       </span>{" "}

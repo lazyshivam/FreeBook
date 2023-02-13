@@ -35,7 +35,7 @@ const Login = () => {
       localStorage.setItem("token", json.authtoken);
       navigate("/");
       GetUserDetails();
-      UpdateAlert("success","You are successfully longedIn.")
+      UpdateAlert("success","You are successfully longged in.")
       // alert("Wohoo!, Account created successfully.");
     }
     else{

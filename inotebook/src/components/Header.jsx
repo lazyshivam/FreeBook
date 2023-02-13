@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {Link,useNavigate} from 'react-router-dom';
+import alertContext from '../context/alerts/AlertContext';
 import image from '../image/open-book.png';
 import UserDetails from './UserDetails';
 
 
 const Header = () => {
   const token = localStorage.getItem("token");  
-
+  const context=useContext(alertContext);
+  const {UpdateAlert}=context;
   const navigate=useNavigate();
   const [show,setShow]=useState(false);
   useEffect(()=>{
@@ -17,6 +19,7 @@ const Header = () => {
   const handleLogout=()=>{
     localStorage.removeItem('token');
     navigate('/login');
+    UpdateAlert("success","You are successfully logged out!.");
   }
 
   return (
