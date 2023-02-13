@@ -3,10 +3,10 @@ const express = require('express')
 const cors=require('cors');
 require('dotenv').config();
 
- connectToMongo()
+ 
 const app = express()
-
-const port = process.env.PORT;
+const port = process.env.PORT||4000;
+connectToMongo()
 app.use(express.json());
 app.use(cors());
 //end point for routes
