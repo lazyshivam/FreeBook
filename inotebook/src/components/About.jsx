@@ -18,7 +18,7 @@ const About = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:4000/api/customers/addCustomer", {
+    const response = await fetch("https://freebook-website.onrender.com/api/customers/addCustomer", {
       method: "POST",
       headers: {
         Accept: "application/json",
