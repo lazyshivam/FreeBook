@@ -43,8 +43,8 @@ const Header = () => {
           {show&&<UserDetails/>}
           </div>
         {show&&<Link to='/login'> <button className="btn btn-primary mx-2" onClick={handleLogout}>Logout</button></Link>}
-        {!show&&<Link to='/login'> <button className="btn btn-primary mx-2" onClick={handleLogout}>Login</button></Link>}
-        {!show&&<Link to='/newuser'> <button className="btn btn-primary mx-2" onClick={handleLogout}>SignUp</button></Link>}
+        {!show&&<Link to='/login'> <button className="btn btn-primary mx-2" >Login</button></Link>}
+        {!show&&<Link to='/newuser'> <button className="btn btn-primary mx-2" >SignUp</button></Link>}
          
         </div>
       </div>
