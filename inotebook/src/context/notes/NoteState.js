@@ -11,6 +11,7 @@ const NoteState = (props) => {
   const [progress,setProgress]=useState(0)
   
   const getNotes = async () => {
+    setProgress(10);
     const response = await fetch(`${host}/api/notes/fetchnotes`, {
       method: "GET",
       headers: {
@@ -21,6 +22,7 @@ const NoteState = (props) => {
     const json = await response.json();
     if(json) setIsFetching(false);
     setNotes(json);
+    setProgress(100);
   };
 
   //adding new notes to the data base
