@@ -9,9 +9,11 @@ const Notes = () => {
   const alertcontext = useContext(alertContext);
   const { UpdateAlert } = alertcontext;
   const naviagte = useNavigate();
-  const { notes, getNotes, updateNote, isFetching } = context;
+  const { notes, getNotes, updateNote, isFetching} = context;
+
   const ref = useRef(null);
   const closeRef = useRef(null);
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getNotes();
@@ -41,10 +43,12 @@ const Notes = () => {
   };
   const handleOnClick = (e) => {
     e.preventDefault();
-    updateNote(note.cid, note.ctitle, note.cdescription, note.ctag);
+     updateNote(note.cid, note.ctitle, note.cdescription, note.ctag);
+     UpdateAlert("success","Notes updated successfully!");
     closeRef.current.click();
-    UpdateAlert("success", "Notes updated successfully!.");
+    
   };
+  
 
   return (
     <div className="Alert">
@@ -133,7 +137,7 @@ const Notes = () => {
       {/* ############################################ */}
       <div className="row my-3 text-white  justify-content-center align-items-center">
         <h2>Your Notes :</h2>
-        { isFetching&& <div className="spinner-border text-primary mt-5" role="status">
+        { isFetching&& <div className="spinner-border text-warning mt-5" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>}
   {/* //Opps! ,No notes to display */}

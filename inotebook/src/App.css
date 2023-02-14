@@ -130,7 +130,10 @@
 .follow {
   font-size: 12px;
   font-weight: 500;
-  color: #444444;
+  color: #8e8a8a;
+}
+.btn1:hover{
+  color:#e7a613 !important;
 }
 
 .btn1 {
@@ -150,6 +153,11 @@
 
 .icons i {
   font-size: 19px;
+  color:#ffffffe3;
+}
+.icons i:hover{
+ 
+  color: #e7a613;
 }
 
 hr .new1 {
@@ -166,10 +174,14 @@ hr .new1 {
   background-color: #4d5456;
 }
 /* footer css */
-.icons i:hover {
+.right .icons a>i:hover {
   cursor: pointer;
-  color: rgb(60, 108, 99);
+  color: #e7a613;
 }
+.right .icons a i{
+  color: #444444;
+}
+
 
 /* about page css */
 
@@ -272,6 +284,9 @@ input[type="tel"] {
   font-size: 22px;
   color: #fff;
   padding: 0 20px 0 0;
+}
+.get_say_social-icn a>i:hover {
+  color: #e7a613;
 }
 .get_say_info_sec i {
   color: #fff;

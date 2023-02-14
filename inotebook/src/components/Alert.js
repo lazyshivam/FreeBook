@@ -1,16 +1,15 @@
 import React, { useContext } from "react";
-// import { useEffect } from 'react';
 import { useRef } from "react";
 import alertContext from "../context/alerts/AlertContext";
 
 const Alert = () => {
   const alertcontext = useContext(alertContext);
-  const { show, alertInfo} = alertcontext;
+  const { showalert, alertInfo} = alertcontext;
   const openref = useRef(null);
   const closeref = useRef(null);
-  if (show) openref.current.click();
+  if (showalert) openref.current.click();
 
-  if(show){
+  if(showalert){
 	  setTimeout(() => {
 	   closeref.current.click();
 	 }, 2000);

@@ -3,16 +3,16 @@ import AlertContext from './AlertContext'
 const AlertState = (props) => {
     // const ref=useRef(null);
     const [alertInfo,setAlertInfo]=useState({type:"",msg:""})
-    const [show,setShow]=useState(false);
+    const [showalert,setShowalert]=useState(false);
   const UpdateAlert=(alertType,message)=>{
         setAlertInfo({type:alertType,msg:message});
-        setShow(true);
+        setShowalert(true);
   }
   setTimeout(() => {
-    setShow(false);
+    setShowalert(false);
   }, 1500);
   return (
-    <AlertContext.Provider value={{UpdateAlert,alertInfo,show}}>
+    <AlertContext.Provider value={{UpdateAlert,alertInfo,showalert}}>
       {props.children}
     </AlertContext.Provider>
   )

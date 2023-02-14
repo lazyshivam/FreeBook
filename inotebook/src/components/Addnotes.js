@@ -3,8 +3,8 @@ import alertContext from "../context/alerts/AlertContext";
 import noteContext from "../context/notes/NoteContext";
    
 const Addnotes = () => {
-    const context = useContext(noteContext);
-    const {addNote} = context;
+    const notecontext = useContext(noteContext);
+    const {addNote,progress} = notecontext;
     const alertcontext=useContext(alertContext);
     const {UpdateAlert}=alertcontext
    
@@ -17,8 +17,9 @@ const Addnotes = () => {
         addNote(note.title,note.description,note.tag);
         
         setNote({title:"",description:"",tag:""});
-        UpdateAlert("success","Notes added successfully!.");
+        if(progress.success) UpdateAlert("success","Notes added successfully!.");
       }
+
     
   return (
     <div className="container my-3 ">

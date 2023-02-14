@@ -1,23 +1,22 @@
-import React, { useContext,useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import userContext from "../context/users/UserContext";
 
 
 const UserDetails = () => {
     const usercontext = useContext(userContext);
-    const { user,GetUserDetails } = usercontext;
-    const navigate=useNavigate();
-    useEffect(()=>{
-        if(localStorage.getItem('token'))
-         {
-          GetUserDetails();
-         }
-         else{
-           navigate('/login')
-         }
-      // eslint-disable-next-line
-     },[])
-    
+    const { user, GetUserDetails } = usercontext;
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            GetUserDetails();
+        }
+        else {
+            navigate('/login')
+        }
+        // eslint-disable-next-line
+    }, [])
+
     return (
         <>
 
@@ -39,11 +38,13 @@ const UserDetails = () => {
                                 <button className="btn btn-secondary"> <img src="https://i.imgur.com/wvxPV9S.png" height="100" width="100" alt="userImage"
                                 /></button>
                                 <span className="name mt-3">{user.name}</span> <span className="idd">{user.email}</span>
-                                <div className=" d-flex mt-2"> <button className="btn1 btn-dark">Follow Me</button> </div>
+                                <div className=" d-flex mt-2"> <button className="btn1 btn-dark">Your Account</button> </div>
 
                                 <div className="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center">
-                                    <span><i className="fa fa-twitter"></i></span> <span><i className="fa fa-facebook-f"></i></span>
-                                    <span><i className="fa fa-instagram"></i></span> <span><i className="fa fa-linkedin"></i></span> </div>
+                                    <span><a href="http://twitter.com/" target="_blank" rel=" noreferrer"><i className="fa fa-twitter"></i></a></span> 
+                                    <span><a href="http://facebook.com/" target="_blank" rel=" noreferrer"><i className="fa fa-facebook-f"></i></a></span>
+                                    <span><a href="http://instagram.com/" target="_blank" rel=" noreferrer"><i className="fa fa-instagram"></i></a></span> 
+                                    <span><a href="http://linkedin.com/" target="_blank" rel=" noreferrer"><i className="fa fa-linkedin"></i></a></span> </div>
                                 <div className=" px-2 rounded mt-4 date "> <span className="join">Joined by {new Date(user.date).toLocaleDateString()}</span> </div>
                             </div>
                         </div>

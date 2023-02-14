@@ -1,14 +1,17 @@
 import React,{useContext,useState} from "react";
 import { Link,useNavigate} from "react-router-dom";
 import alertContext from "../context/alerts/AlertContext";
+import noteContext from "../context/notes/NoteContext";
 import image from "../image/open-book.png";
 
 
 
-const Newuser = (props) => {
+const Newuser = () => {
 
   const alertcontext=useContext(alertContext);
   const {UpdateAlert}=alertcontext;
+  const progressContext=useContext(noteContext);
+  const {setProgress}=progressContext;
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -20,7 +23,7 @@ const Newuser = (props) => {
   };
 
   const handleOnSubmit = async (event) => {
-   
+    setProgress(10);
     event.preventDefault();
     const host =  "https://freebook-website.onrender.com";
     const response=await fetch(`${host}/api/auth/createuser`, {
@@ -32,7 +35,6 @@ const Newuser = (props) => {
       body: JSON.stringify({name:credentials.name,email:credentials.email,password:credentials.password}),
     });
 
-  
     const json=await response.json();
 
     //save the authtoken and redirect
@@ -48,6 +50,7 @@ const Newuser = (props) => {
       else
       alert(json.errors[0].msg)
     }
+    setProgress(100);
   };
   
 
@@ -136,7 +139,8 @@ const Newuser = (props) => {
         </div>
       </form>
       <div className="d-flex justify-content-center p-3 my-4">
-        <Link to="/login">Login</Link>
+        <span>Already have an account?</span>
+        <Link to="/login"  onClick={()=>setProgress(100) } style={{textDecoration:'none'}}>Login</Link>
       </div>
     </div>
     </div>

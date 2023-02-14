@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useContext } from "react";
 import { Link ,useNavigate} from "react-router-dom";
 import alertContext from "../context/alerts/AlertContext";
+import noteContext from "../context/notes/NoteContext";
 import userContext from "../context/users/UserContext";
 import image from "../image/open-book.png";
 
 const Login = () => {
   const alertcontext=useContext(alertContext);
   const usercontext=useContext(userContext);
+  const progressContext=useContext(noteContext);
+  const {setProgress}=progressContext;
   const {GetUserDetails}=usercontext;
   const {UpdateAlert}=alertcontext;
   const host = "https://freebook-website.onrender.com";
@@ -17,6 +20,7 @@ const Login = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
   const handleOnSubmit = async (e) => {
+    setProgress(10)
     e.preventDefault();
     const response = await fetch(`${host}/api/auth/login`, {
       method: "POST",
@@ -35,8 +39,8 @@ const Login = () => {
       localStorage.setItem("token", json.authtoken);
       navigate("/");
       GetUserDetails();
+      setProgress(100)
       UpdateAlert("success","You are successfully longged in.")
-      // alert("Wohoo!, Account created successfully.");
     }
     else{
       navigate('/login')
@@ -108,7 +112,8 @@ const Login = () => {
           </div>
         </form>
         <div className="d-flex justify-content-center p-5">
-          <Link to="/newuser">Create Your Account</Link>
+          <span>Don't have an account?</span>
+          <Link to="/newuser" onClick={()=>setProgress(100)}  style={{textDecoration:'none'}}>Signup now</Link>
         </div>
       </div>
     </div>
