@@ -130,8 +130,8 @@ const Newuser = () => {
           />
         </div>
         <div
-          className="position-relative  "
-          style={{ left: "50px", top: "20px" }}
+          className="position-relative d-flex justify-content-center align-items-center "
+          style={{ top: "20px" }}
         >
           <button type="submit" className="btn btn-primary w-75   ">
             Create Your Account

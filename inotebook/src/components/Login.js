@@ -103,8 +103,8 @@ const Login = () => {
             />
           </div>
           <div
-            className="position-relative  "
-            style={{ left: "50px", top: "10px" }}
+            className="position-relative d-flex justify-content-center align-items-center "
+            style={{ top: "10px" }}
           >
             <button type="submit" className="btn btn-primary w-75   ">
               Login
@@ -112,7 +112,7 @@ const Login = () => {
           </div>
         </form>
         <div className="d-flex justify-content-center p-5">
-          <span>Don't have an account?</span>
+          Not a member?
           <Link to="/newuser" onClick={()=>setProgress(100)}  style={{textDecoration:'none'}}>Signup now</Link>
         </div>
       </div>
