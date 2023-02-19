@@ -64,8 +64,10 @@ const Newuser = () => {
         top: "70px",
         padding: "20px",
         opacity: "1",
+        border:"2px solid #e7a613",
+        borderRadius: "35px",
       }}
-      className="container loginform"
+      className="container signup-form"
     >
       <div
         className="icon d-flex justify-content-center py-2 "

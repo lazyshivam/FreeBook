@@ -57,6 +57,9 @@ const Login = () => {
           top: "70px",
           padding: "20px",
           opacity: "1",
+          border:"2px solid #e7a613",
+          borderRadius: "35px",
+          
         }}
         className="container loginform "
       >

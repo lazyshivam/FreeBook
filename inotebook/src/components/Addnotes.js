@@ -4,7 +4,7 @@ import noteContext from "../context/notes/NoteContext";
    
 const Addnotes = () => {
     const notecontext = useContext(noteContext);
-    const {addNote,progress} = notecontext;
+    const {addNote} = notecontext;
     const alertcontext=useContext(alertContext);
     const {UpdateAlert}=alertcontext
    
@@ -16,8 +16,8 @@ const Addnotes = () => {
           e.preventDefault();
         addNote(note.title,note.description,note.tag);
         
-        setNote({title:"",description:"",tag:""});
-        if(progress.success) UpdateAlert("success","Notes added successfully!.");
+         setNote({title:"",description:"",tag:""});
+         UpdateAlert("success","Notes added successfully!.");
       }
 
     
